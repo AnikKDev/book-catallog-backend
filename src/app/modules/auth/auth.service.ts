@@ -5,7 +5,7 @@ import ApiError from "../../../errors/ApiError";
 import { jwtHelpers } from "../../../helpers/jwtHelpers";
 import { passwordEncryption } from "../../../utils/passwordEncryption";
 import prisma from "../../../utils/prisma";
-import { UserLoginData } from "./users.interface";
+import { UserLoginData } from "./auth.interface";
 
 const insertIntoDB = async (data: User) => {
   const { password: inputPassword, ...userInputData } = data;
@@ -24,6 +24,7 @@ const insertIntoDB = async (data: User) => {
   const { password, ...otherData } = result;
   return otherData;
 };
+
 const login = async (data: UserLoginData) => {
   const { password: inputPassword, email } = data;
   const isUserExist = await prisma.user.findUnique({
@@ -58,7 +59,7 @@ const login = async (data: UserLoginData) => {
   return generatedToken;
 };
 
-export const usersService = {
+export const authService = {
   insertIntoDB,
   login,
 };

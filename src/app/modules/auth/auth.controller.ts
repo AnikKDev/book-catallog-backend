@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import catchAsync from "../../../utils/catchAsync";
 import sendResponse from "../../../utils/sendResponse";
-import { usersService } from "./users.service";
+import { authService } from "./auth.service";
 
 const insertIntoDB = catchAsync(
   async (req: Request, res: Response): Promise<void> => {
-    const result = await usersService.insertIntoDB(req.body);
+    const result = await authService.insertIntoDB(req.body);
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.CREATED,
@@ -17,7 +17,7 @@ const insertIntoDB = catchAsync(
 );
 const userLogin = catchAsync(
   async (req: Request, res: Response): Promise<void> => {
-    const result = await usersService.login(req.body);
+    const result = await authService.login(req.body);
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,
@@ -27,7 +27,7 @@ const userLogin = catchAsync(
   }
 );
 
-export const usersController = {
+export const authController = {
   insertIntoDB,
   userLogin,
 };
