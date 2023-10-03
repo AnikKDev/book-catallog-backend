@@ -27,8 +27,23 @@ const getSingleUser = async (id: string): Promise<Partial<User> | null> => {
   const userWithoutPass = omitField(result, ["password"]);
   return userWithoutPass;
 };
+// update single user
+const updateSingleUser = async (
+  id: string,
+  data: Partial<User>
+): Promise<void> => {
+  await prisma.user.update({
+    where: {
+      id,
+    },
+    data,
+  });
+  /* const userWithoutPass = omitField(result, ["password"]);
+  return userWithoutPass; */
+};
 
 export const usersService = {
   getAllUsers,
   getSingleUser,
+  updateSingleUser,
 };
