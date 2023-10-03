@@ -8,32 +8,9 @@ import prisma from "../../../utils/prisma";
 import { UserLoginData } from "./auth.interface";
 
 const insertIntoDB = async (data: User) => {
-  /*  const { password: inputPassword, ...userInputData } = data;
-  const hashedPassword = passwordEncryption.hashPassword(inputPassword); */
-
   const result = await prisma.user.signUp(data);
-  // const { password, ...otherData } = result;
   return result;
 };
-
-/* const insertIntoDB = async (data: User) => {
-  const { password: inputPassword, ...userInputData } = data;
-  const hashedPassword = passwordEncryption.hashPassword(inputPassword);
-
-  const result = await prisma.user.create({
-    data: {
-      ...userInputData,
-      password: hashedPassword,
-    },
-    include: {
-      orders: true,
-      reviewAndRatings: true,
-    },
-  });
-  const { password, ...otherData } = result;
-  return otherData;
-}; */
-
 const login = async (data: UserLoginData) => {
   const { password: inputPassword, email } = data;
   const isUserExist = await prisma.user.findUnique({
