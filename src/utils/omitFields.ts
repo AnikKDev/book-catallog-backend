@@ -15,10 +15,10 @@ export const omitFields = <T, K extends keyof Partial<T>>(
 
 export const omitField = <T, K extends keyof T>(
   user: T,
-  keys: K[]
+  keys: string[]
 ): Omit<T, K> => {
   const result = Object.fromEntries(
-    Object.entries(user as string).filter(([key]) => !keys.includes(key as K))
+    Object.entries(user as any).filter(([key]) => !keys.includes(key as any))
   );
   return result as Omit<T, K>;
 };
