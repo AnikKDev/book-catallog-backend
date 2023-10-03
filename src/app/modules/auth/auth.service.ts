@@ -8,6 +8,15 @@ import prisma from "../../../utils/prisma";
 import { UserLoginData } from "./auth.interface";
 
 const insertIntoDB = async (data: User) => {
+  /*  const { password: inputPassword, ...userInputData } = data;
+  const hashedPassword = passwordEncryption.hashPassword(inputPassword); */
+
+  const result = await prisma.user.signUp(data);
+  // const { password, ...otherData } = result;
+  return result;
+};
+
+/* const insertIntoDB = async (data: User) => {
   const { password: inputPassword, ...userInputData } = data;
   const hashedPassword = passwordEncryption.hashPassword(inputPassword);
 
@@ -23,7 +32,7 @@ const insertIntoDB = async (data: User) => {
   });
   const { password, ...otherData } = result;
   return otherData;
-};
+}; */
 
 const login = async (data: UserLoginData) => {
   const { password: inputPassword, email } = data;
