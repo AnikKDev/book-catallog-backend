@@ -56,7 +56,7 @@ const login = async (data: UserLoginData) => {
     config.jwt.secret as string,
     config.jwt.expires_in as string
   );
-  return generatedToken;
+  return { token: generatedToken };
 };
 
 export const authService = {

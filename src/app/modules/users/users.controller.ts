@@ -4,30 +4,18 @@ import catchAsync from "../../../utils/catchAsync";
 import sendResponse from "../../../utils/sendResponse";
 import { usersService } from "./users.service";
 
-const insertIntoDB = catchAsync(
+const getAllUsers = catchAsync(
   async (req: Request, res: Response): Promise<void> => {
-    const result = await usersService.insertIntoDB(req.body);
-    sendResponse(res, {
-      success: true,
-      statusCode: httpStatus.CREATED,
-      message: "User created successfully",
-      data: result,
-    });
-  }
-);
-const userLogin = catchAsync(
-  async (req: Request, res: Response): Promise<void> => {
-    const result = await usersService.login(req.body);
+    const result = await usersService.getAllUsers();
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,
-      message: "User loggedin successfully",
+      message: "Got all users successfully",
       data: result,
     });
   }
 );
 
 export const usersController = {
-  insertIntoDB,
-  userLogin,
+  getAllUsers,
 };
