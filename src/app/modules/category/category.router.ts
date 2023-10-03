@@ -16,4 +16,11 @@ router.post(
 );
 
 router.get("/:id", categoryController.getSingleCategory);
+
+router.patch(
+  "/:id",
+  validateRequest(categoryValidation.update),
+  auth(ENUM_USER_ROLE.ADMIN),
+  categoryController.updateSingleCategory
+);
 export const categoryRouter = router;
