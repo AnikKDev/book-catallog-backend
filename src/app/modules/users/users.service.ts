@@ -38,12 +38,19 @@ const updateSingleUser = async (
     },
     data,
   });
-  /* const userWithoutPass = omitField(result, ["password"]);
-  return userWithoutPass; */
+};
+// delete single user
+const deleteSingleUser = async (id: string): Promise<void> => {
+  await prisma.user.delete({
+    where: {
+      id,
+    },
+  });
 };
 
 export const usersService = {
   getAllUsers,
   getSingleUser,
   updateSingleUser,
+  deleteSingleUser,
 };

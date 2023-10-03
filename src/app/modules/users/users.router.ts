@@ -15,4 +15,11 @@ router.patch(
   usersController.updateSingleUser
 );
 
+// delete api's
+router.delete(
+  "/:id",
+  auth(ENUM_USER_ROLE.ADMIN),
+  usersController.deleteSingleUser
+);
+
 export const userRouter = router;
