@@ -28,6 +28,24 @@ const prisma = new PrismaClient({
         return userWithoutPass;
       },
     },
+    book: {
+      async createBook(bookData: any) {
+        const { publicationDate, ...otherBookData } = bookData;
+        const result = await prisma.book.create({
+          data: {
+            ...otherBookData,
+            publicationDate: new Date(publicationDate),
+          },
+        });
+        if (!result) {
+          throw new ApiError(
+            httpStatus.INTERNAL_SERVER_ERROR,
+            "Error creating the book"
+          );
+        }
+        return result;
+      },
+    },
   },
 });
 

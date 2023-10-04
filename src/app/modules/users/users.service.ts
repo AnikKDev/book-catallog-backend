@@ -3,6 +3,7 @@ import { omitField, omitFields } from "../../../utils/omitFields";
 import prisma from "../../../utils/prisma";
 
 // get all users
+// TODO: have to add paginations
 const getAllUsers = async (): Promise<Partial<User>[]> => {
   const result = await prisma.user.findMany({
     include: {

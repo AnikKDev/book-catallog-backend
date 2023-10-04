@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { ENUM_USER_ROLE } from "../../../enums/user";
 import auth from "../../middlewares/auth";
+import validateRequest from "../../middlewares/validateRequest";
 import { usersController } from "./users.controller";
+import { usersValidation } from "./users.validation";
 
 const router: Router = Router();
 // get api's
@@ -12,6 +14,7 @@ router.get("/:id", auth(ENUM_USER_ROLE.ADMIN), usersController.getSingleUser);
 router.patch(
   "/:id",
   auth(ENUM_USER_ROLE.ADMIN),
+  validateRequest(usersValidation.update),
   usersController.updateSingleUser
 );
 

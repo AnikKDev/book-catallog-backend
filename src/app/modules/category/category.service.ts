@@ -1,4 +1,6 @@
 import { Category } from "@prisma/client";
+import httpStatus from "http-status";
+import ApiError from "../../../errors/ApiError";
 import prisma from "../../../utils/prisma";
 
 const insertIntoDB = (data: Category): Promise<Category> => {
@@ -27,6 +29,12 @@ const getSingleCategory = async (id: string): Promise<Category | null> => {
       books: true,
     },
   });
+  if (!result) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "Category not found with this id."
+    );
+  }
   return result;
 };
 
@@ -42,10 +50,19 @@ const updateSingleCategory = async (
   });
   return result;
 };
+const deleteSingleCategory = async (id: string): Promise<Category> => {
+  const result = await prisma.category.delete({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
 
 export const cateogryService = {
   insertIntoDB,
   getAllCategories,
   getSingleCategory,
   updateSingleCategory,
+  deleteSingleCategory,
 };
