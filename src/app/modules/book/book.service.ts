@@ -3,8 +3,8 @@ import httpStatus from "http-status";
 import ApiError from "../../../errors/ApiError";
 import prisma from "../../../utils/prisma";
 
-const insertIntoDB = (data: Book): Promise<Book> => {
-  const result = prisma.book.createBook(data);
+const insertIntoDB = async (data: Book): Promise<Book> => {
+  const result = await prisma.book.createBook(data);
   return result;
 };
 

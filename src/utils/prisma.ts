@@ -9,10 +9,10 @@ const prisma = new PrismaClient({
 }).$extends({
   model: {
     user: {
-      async signUp(userData: UserSignupData) {
+      async signUp(userData: any) {
         const { password: inputPassword, ...userInputData } = userData;
         const hashedPassword = passwordEncryption.hashPassword(inputPassword);
-        const result = await prisma.user.create({
+        const result: UserSignupData = await prisma.user.create({
           data: {
             ...userInputData,
             password: hashedPassword,
