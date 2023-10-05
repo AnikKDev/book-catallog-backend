@@ -4,8 +4,12 @@ import auth from "../../middlewares/auth";
 import { ordersController } from "./orders.controller";
 
 const router = Router();
-// router.get("/", orderController.getAllbooks);
-
+router.get("/", auth(ENUM_USER_ROLE.ADMIN), ordersController.getAllOrders);
+router.get(
+  "/my-orders",
+  auth(ENUM_USER_ROLE.CUSTOMER),
+  ordersController.getAllOrdersForUser
+);
 router.post(
   "/create-order",
   //   validateRequest(orderValidation.create),

@@ -26,6 +26,38 @@ const insertIntoDB = catchAsync(
     });
   }
 );
+
+const getAllOrders = catchAsync(
+  async (req: Request, res: Response): Promise<void> => {
+    const result = await ordersService.getAllOrders();
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Orders fetched successfully",
+      data: result,
+    });
+  }
+);
+
+const getAllOrdersForUser = catchAsync(
+  async (req: Request, res: Response): Promise<void> => {
+    const loggedinUserData = jwtHelpers.verifyToken(
+      req.headers.authorization as string,
+      config.jwt.secret as string
+    );
+    const result = await ordersService.getAllOrderForUser(
+      loggedinUserData.userId
+    );
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Orders fetched successfully",
+      data: result,
+    });
+  }
+);
 export const ordersController = {
   insertIntoDB,
+  getAllOrders,
+  getAllOrdersForUser,
 };
