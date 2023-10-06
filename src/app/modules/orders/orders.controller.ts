@@ -56,8 +56,28 @@ const getAllOrdersForUser = catchAsync(
     });
   }
 );
+
+const getOrderDetails = catchAsync(
+  async (req: Request, res: Response): Promise<void> => {
+    const loggedinUserData = jwtHelpers.verifyToken(
+      req.headers.authorization as string,
+      config.jwt.secret as string
+    );
+    const result = await ordersService.getOrderDetails(
+      loggedinUserData.userId,
+      req.params.orderId
+    );
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Order fetched successfully",
+      data: result,
+    });
+  }
+);
 export const ordersController = {
   insertIntoDB,
   getAllOrders,
   getAllOrdersForUser,
+  getOrderDetails,
 };
